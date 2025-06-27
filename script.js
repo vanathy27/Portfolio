@@ -1,74 +1,46 @@
+// Cursor Effect
 var cursor = document.querySelector("#cursor");
+var cursorBlur = document.querySelector("#cursorBlur");
 
-document.addEventListener("mousemove", (dets) => {
-    cursor.style.left = dets.x + "px";
-    cursor.style.top = dets.y + "px";
-    cursorBlur.style.left = dets.x - 125 + "px";
-    cursorBlur.style.top = dets.y - 125 + "px"
-})
-
-const menu_btn = document.querySelector('.hamburger');
-const mobile_menu = document.querySelector('.mobile-nav');
-
-menu_btn.addEventListener('click', function () {
-    menu_btn.classList.toggle('is-active');
-    mobile_menu.classList.toggle('is-active');
+document.addEventListener("mousemove", (e) => {
+    cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    cursorBlur.style.transform = `translate(${e.clientX - 125}px, ${e.clientY - 125}px)`;
 });
 
-var nav_h4 = document.querySelectorAll('#nav h4');
-nav_h4.forEach(function (elem) {
-    elem.addEventListener("mouseenter", () => {
-        cursor.style.scale = 2.5;
-        cursor.style.border= "1px solid #fff";
-        cursor.style.backgroundColor = "transparent"
-    });
-    elem.addEventListener("mouseleave", () => {
-        cursor.style.scale = 1;
-        cursor.style.border= "#95c11e";
-        cursor.style.backgroundColor = "transparent"
-    })
-})
+// Hamburger Menu
+const menuBtn = document.querySelector('.hamburger');
+const mobileMenu = document.querySelector('.mobile-nav');
 
-gsap.to("#nav", {
+menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('is-active');
+    mobileMenu.classList.toggle('is-active');
+});
+
+// Navbar Animation
+gsap.to("nav", {
     backgroundColor: "#000",
     duration: 0.5,
-    height: "100px",
+    height: "80px",
     scrollTrigger: {
-        trigger: "#nav",
+        trigger: "nav",
         scroller: "body",
         start: "top -10%",
         end: "top -11%",
         scrub: 1.5,
     }
-})
+});
 
-gsap.to("#main", {
-    backgroundColor: "#000",
-    scrollTrigger: {
-        trigger: "#main",
-        scroller: "body",
-        start: "top -30%",
-        end: "top -80%",
-        scrub: 2,
-    }
-})
-
-gsap.from("#page1 h1, #page1 h2, #page1 p", {
-    y: -200,
-    stagger: 0.3,
-    opacity: 0
-})
-
-gsap.from("#about-us img,#about-us-in", {
-    y: 90,
+// Page Scroll Animations
+gsap.from("section h1, section h2, section p", {
+    y: 100,
     opacity: 0,
     duration: 1,
+    stagger: 0.3,
     scrollTrigger: {
-      trigger: "#about-us",
-      scroller: "body",
-      // markers:true,
-      start: "top 70%",
-      end: "top 65%",
-      scrub: 1,
+        trigger: "section",
+        scroller: "body",
+        start: "top 80%",
+        end: "top 60%",
+        scrub: 1,
     },
 });
